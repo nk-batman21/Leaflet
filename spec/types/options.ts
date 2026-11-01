@@ -1,6 +1,7 @@
 // Options interfaces are all-optional bags, as in `@types/leaflet`, while `options` on an instance has the defaults
 // filled in, including the ones inherited from parent classes.
-import {Circle, Layer, LayersControl, Map, Marker, Polyline, TileLayer, ZoomControl} from 'leaflet';
+import {Circle, DefaultIcon, DivIcon, Layer, LayersControl, Map, Marker, Point, Polyline, ScaleControl, TileLayer,
+	ZoomControl} from 'leaflet';
 import type {ControlPosition, MapOptions, MarkerOptions, PathOptions, PolylineOptions, TileLayerOptions} from 'leaflet';
 
 declare module 'leaflet' {
@@ -35,6 +36,14 @@ const collapsed: boolean = new LayersControl().options.collapsed;
 // @ts-expect-error no default for bounds
 const bounds: object = new TileLayer('').options.bounds;
 const asLayer: Layer = m;
+
+// defaults that override an inherited option keep the parent's type, not the narrower one of the default value
+const zoomControl = new ZoomControl({position: 'bottomright'});
+zoomControl.options.position = 'topright';
+new ScaleControl().options.position = 'topleft';
+const divIcon = new DivIcon({iconSize: new Point(20, 20)});
+divIcon.options.iconSize = 16;
+new DefaultIcon().options.iconSize = new Point(25, 41);
 
 // generic and concrete subclasses
 class MyTiles<O extends TileLayerOptions = TileLayerOptions> extends TileLayer<O> {
