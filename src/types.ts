@@ -386,7 +386,7 @@ declare module './Leaflet.js' {
 		 * @category Extension methods
 		 * @uninheritable
 		 */
-		eachLayer?(fn: (layer: Layer) => void, context?: unknown): unknown;
+		eachLayer?(fn: (layer: unknown) => void, context?: unknown): unknown;
 		/**
 		 * The GeoJSON feature the layer was created from, set by [`GeoJSON`](#geojson) on each layer it creates and
 		 * used by [`toGeoJSON`](#geojson-togeojson) to keep its `properties`.

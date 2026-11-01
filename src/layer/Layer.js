@@ -306,7 +306,7 @@ export class Layer extends LayerBase {
 				if (this.getElement) {
 					this._setAriaDescribedByOnLayer(this);
 				} else if (this.eachLayer) {
-					this.eachLayer(this._setAriaDescribedByOnLayer, this);
+					this.eachLayer(layer => this._setAriaDescribedByOnLayer(/** @type {Layer} */ (layer)));
 				}
 			}
 		}
@@ -364,7 +364,7 @@ export class Layer extends LayerBase {
 		if (this.getElement) {
 			this._addFocusListenersOnLayer(this, !add);
 		} else if (this.eachLayer) {
-			this.eachLayer(layer => this._addFocusListenersOnLayer(layer, !add), this);
+			this.eachLayer(layer => this._addFocusListenersOnLayer(/** @type {Layer} */ (layer), !add));
 		}
 	}
 

@@ -44,7 +44,7 @@ import {latLngToCoords, latLngsToCoords, getFeature, asFeature} from './GeoJSONU
  * There are several static functions which can be called without instantiating GeoJSON:
  * @template {GeoJSONOptions} [O=GeoJSONOptions]
  * @template {FeatureGroupEventMap} [E=FeatureGroupEventMap]
- * @extends {FeatureGroup<O, E>}
+ * @extends {FeatureGroup<Layer, O, E>}
  */
 export class GeoJSON extends FeatureGroup {
 

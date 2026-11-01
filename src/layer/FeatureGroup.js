@@ -3,6 +3,7 @@ import {LatLngBounds} from '../geo/LatLngBounds.js';
 
 /** @import {FeatureGroupEventMap, InteractiveLayerOptions, LayerEvent} from '../types.js' */
 /** @import {Layer} from './Layer.js' */
+/** @import {LayerBase} from './LayerBase.js' */
 
 /**
  * @typedef {Object} FeatureGroupEvents
@@ -23,13 +24,14 @@ import {LatLngBounds} from '../geo/LatLngBounds.js';
  * 	.on('click', function() { alert('Clicked on a member of the group!'); })
  * 	.addTo(map);
  * ```
+ * @template {Layer} [L=Layer]
  * @template {InteractiveLayerOptions} [O=InteractiveLayerOptions]
  * @template {FeatureGroupEventMap} [E=FeatureGroupEventMap]
- * @extends {LayerGroup<O, E>}
+ * @extends {LayerGroup<L, O, E>}
  */
 export class FeatureGroup extends LayerGroup {
 
-	/** @param {Layer} layer */
+	/** @param {L} layer */
 	addLayer(layer) {
 		if (this.hasLayer(layer)) {
 			return this;
@@ -42,7 +44,7 @@ export class FeatureGroup extends LayerGroup {
 		return this.fire('layeradd', {layer});
 	}
 
-	/** @param {Layer | number} layer */
+	/** @param {L | number} layer */
 	removeLayer(layer) {
 		if (!this.hasLayer(layer)) {
 			return this;

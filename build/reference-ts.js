@@ -746,11 +746,13 @@ function classInterfaces(cls) {
 		for (const tp of t.typeParameters) { defaults[tp.name.text] = tp.defaultType?.typeName?.text; }
 	}
 	const args = augmentsOf(cls)?.className.typeArguments ?? [];
-	return [0, 1].map((i) => {
+	const names = args.map((arg) => {
 		// `O & XDefaults` passes the class's own options up with its defaults filled in
-		const n = (args[i]?.types?.[0] ?? args[i])?.typeName?.text;
+		const n = (arg.types?.[0] ?? arg).typeName?.text;
 		return n && (n in defaults ? defaults[n] : n);
-	}).map(n => (n && INTERFACE_SUFFIX.test(n) ? n : undefined));
+	});
+	// by suffix, since groups take their member type first
+	return [OPTIONS_SUFFIX, EVENT_MAP_SUFFIX].map(re => names.find(n => n && re.test(n)));
 }
 
 // Interfaces merged into a class by `declare module` augmentations
