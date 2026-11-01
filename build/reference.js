@@ -44,7 +44,7 @@ const COLUMNS = {
 const md = new Marked();
 let akas; // link name → anchor, for the reference being rendered
 
-const liquid = new Liquid({root: 'build/reference', extname: '.liquid'});
+const liquid = new Liquid({root: 'build/reference', extname: '.liquid', cache: true});
 
 // links a type name that has an anchor on the page
 const link = str => (str in akas ? `<a href='#${akas[str]}'>${str}</a>` : str);
